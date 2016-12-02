@@ -1,15 +1,21 @@
-container_name := fluentd-aws-elasticsearch
-container_registry := quay.io/nordstrom
-container_release := 1.3
+image_name := fluentd
+image_registry := quay.io/nordstrom
+image_release := 2.3.3-1
 
 .PHONY: build/image tag/image push/image
 
+ifdef http_proxy
+build_args += --build-arg=http_proxy=$(http_proxy)
+build_args += --build-arg=HTTP_PROXY=$(http_proxy)
+build_args += --build-arg=https_proxy=$(http_proxy)
+build_args += --build-arg=HTTPS_PROXY=$(http_proxy)
+endif
+
 build/image:
-	docker build \
-		-t $(container_name) .
+	docker build $(build_args) -t $(image_name) .
 
 tag/image: build/image
-	docker tag $(container_name) $(container_registry)/$(container_name):$(container_release)
+	docker tag $(image_name) $(image_registry)/$(image_name):$(image_release)
 
 push/image: tag/image
-	docker push $(container_registry)/$(container_name):$(container_release)
+	docker push $(image_registry)/$(image_name):$(image_release)
