@@ -1,6 +1,6 @@
 image_name := fluentd
 image_registry := quay.io/nordstrom
-image_release := 2.3.3-1
+image_release := 2.3.4
 
 .PHONY: build/image tag/image push/image
 

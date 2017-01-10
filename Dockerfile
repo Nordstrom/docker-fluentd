@@ -7,9 +7,8 @@ USER root
 RUN ulimit -n 65536
 
 # Setup package for installing td-agent. (For more info https://td-toolbelt.herokuapp.com/sh/install-ubuntu-trusty-td-agent2.sh)
-ADD GPG-KEY-td-agent /tmp/apt-key
-RUN apt-key add /tmp/apt-key && \
-    echo "deb http://packages.treasuredata.com/2/ubuntu/trusty/ trusty contrib" \
+RUN curl -s https://packages.treasuredata.com/GPG-KEY-td-agent | apt-key add - \
+ && echo "deb http://packages.treasuredata.com/2/ubuntu/trusty/ trusty contrib" \
       > /etc/apt/sources.list.d/treasure-data.list
 
 # Install prerequisites.
