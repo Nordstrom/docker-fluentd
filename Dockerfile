@@ -22,13 +22,13 @@ RUN apt-get update -qy && \
 # Needed to allow access to /var/log/docker/... files.
 RUN sed -i -e "s/USER=td-agent/USER=root/" -e "s/GROUP=td-agent/GROUP=root/" /etc/init.d/td-agent
 
-RUN /usr/sbin/td-agent-gem install --no-ri --no-rdoc -v 0.26.2 fluent-plugin-kubernetes_metadata_filter
+RUN /usr/sbin/td-agent-gem install --no-ri --no-rdoc -v 0.27.0 fluent-plugin-kubernetes_metadata_filter
 # See: https://github.com/atomita/fluent-plugin-aws-elasticsearch-service
 RUN /usr/sbin/td-agent-gem install --no-ri --no-rdoc -v 0.1.6 fluent-plugin-aws-elasticsearch-service
 # See: https://github.com/uken/fluent-plugin-elasticsearch
-# RUN /usr/sbin/td-agent-gem install --no-ri --no-rdoc -v 1.9.0 fluent-plugin-elasticsearch
+# RUN /usr/sbin/td-agent-gem install --no-ri --no-rdoc -v 1.9.5 fluent-plugin-elasticsearch
 # See: https://github.com/reevoo/fluent-plugin-systemd
-RUN /usr/sbin/td-agent-gem install --no-ri --no-rdoc -v 0.0.5 fluent-plugin-systemd
+RUN /usr/sbin/td-agent-gem install --no-ri --no-rdoc -v 0.2.0 fluent-plugin-systemd
 
 # Copy the Fluentd configuration file.
 COPY td-agent.conf /etc/td-agent/td-agent.conf
